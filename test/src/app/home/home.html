@@ -1,0 +1,35 @@
+<p>home works!</p>
+<img src="">
+
+<h1>{{user}}</h1>
+<br>
+<br>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">QUANTITY</th>
+      <th scope="col">STATUS</th>
+    <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of items;track item.id){
+
+  <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.quantity}}</td>
+      <td>{{item.available}}</td>
+      <td>  <button  (click)="item1(item)" >Click me</button> </td>
+
+    </tr>
+
+}
+  
+  
+
+  </tbody>
+</table>

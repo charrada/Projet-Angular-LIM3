@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Gestion des Posts</h2>
+
+  <!-- Formulaire -->
+  <div class="card p-4 mb-4 shadow-sm">
+    <h5>{{ editingId ? 'Modifier un Post' : 'Ajouter un nouveau Post' }}</h5>
+
+    <div class="form-group mb-3">
+      <label for="title">Titre</label>
+      <input
+        id="title"
+        type="text"
+        class="form-control"
+        placeholder="Titre du post"
+        [(ngModel)]="title"
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="body">Contenu</label>
+      <textarea
+        id="body"
+        class="form-control"
+        rows="3"
+        placeholder="Contenu du post"
+        [(ngModel)]="body"
+      ></textarea>
+    </div>
+
+    <button class="btn btn-success w-100" (click)="addOrUpdatePost()">
+      {{ editingId ? 'Mettre à jour' : 'Ajouter' }}
+    </button>
+  </div>
+
+  <!-- Liste des posts -->
+  <div class="card p-3 shadow-sm">
+    <h5 class="mb-3">Liste des Posts</h5>
+
+    <table class="table table-bordered table-striped">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Titre</th>
+          <th>Contenu</th>
+          <th style="width: 160px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of posts; track p.id) {
+          <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.title }}</td>
+            <td>{{ p.body }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editPost(p)">
+                ✏️ Modifier
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deletePost(p.id)">
+                🗑 Supprimer
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="text-center text-muted">
+              Aucun post disponible.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

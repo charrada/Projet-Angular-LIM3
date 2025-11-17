@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user-service';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +11,32 @@ import { Router } from '@angular/router';
 })
 export class Login {
 
-  constructor( private router:Router){}
+  email: string = '';
+  password: string = '';
 
-  email1:string="";
-  password:string="";
+  constructor(private userService: UserService, private router: Router) {}
 
-  login(){
-    console.log("login")
+  login() {
+    const user = {
+      email: this.email,
+      password: this.password
+    };
 
-    if(this.email1=='admin'&& this.password=="admin"){
-alert("Okaay")
-this.router.navigate(['loading'])
-    }else{
-alert('NOOOO')
-    }
-
+    this.userService.login(user).subscribe(
+      (res: any) => {
+        if (res) {
+          alert('Login réussi !');
+          // Redirige vers la page de ton choix
+          this.router.navigate(['loading']);
+        } else {
+          alert('Email ou mot de passe incorrect.');
+        }
+      },
+      (err) => {
+        console.error(err);
+        alert('Erreur lors de la connexion.');
+      }
+    );
   }
 
 }
